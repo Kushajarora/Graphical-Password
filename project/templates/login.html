@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js">
+    </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input[type="radio1"]').click(function () {
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".selectt").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+</script>
+
+<style>
+#container{
+  background: inherit;
+  top: 50%;
+  left: 50%;
+  margin-left: 50px;
+  margin-top: 220px;
+  border-radius: 8px;
+}
+/*#container:before{
+  content: "";
+  top: 50%;
+  left: 50%;
+  margin-left: 50px;
+  margin-top: 220px;
+  background: inherit;
+  box-shadow: inset 0 0 0 200px rgba(255,255,255,0.2);
+  filter: blur(50px);
+}*/
+form{
+ text-align: center;
+  left: 60%;
+  top: 180%;
+  transform: translate(-50%,-50%);
+}
+input{
+  background: 0;
+  width: 200px;
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid rgba(255,255,255, 0.3);
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(255,255,255, 0.8);
+}
+/*input[type="submit"]{
+  border: 0;
+  border-radius: 8px;
+  padding-bottom: 0;
+  height: 60px;
+  background: #df2359;
+  color: white;
+  cursor: pointer;
+  transition: all 600ms ease-in-out;
+}
+input[type="submit"]:hover{
+  background: #C0392B;
+}*/
+span a{
+  color: rgba(255,255,255, 0.8);
+}
+.form-group {
+        border-radius: 10px;
+        padding: 2px;
+    }
+    .lab {
+        font-weight: bold;
+    }
+     .lbb{
+        box-shadow: 2px 5px 25px  dimgray;
+        font-size: large;
+        cursor: pointer;
+        border-radius: 30px;
+        padding: 40px;
+        margin: 5px 5px 5px;
+     }
+</style>
+<div class="container">
+<div class="row">
+    <div class="is-offset-4 is-4 selectt" style="float:left;font-size:60px;text-shadow: 2px 4px 4px dimgrey; text-align: left";>
+        PICK<br>YOUR<br><p style="color: GREEN">PASSWORD</p>TYPE<br>FOR<br><p style="color: red">LOGIN</p></div>
+        <div class="row column is-14" >
+        <div class="center selectt is-offset-4" style="float: right">
+        <label class="lbb btn-primary"><input type="radio1"  name="radio"  value="gp_1" style="display: none">Image based Graphical Password</label>
+        <br><br><br><br><br>
+        <label class="lbb btn-primary"><input type="radio1" name="radio" value="gp_2" style="display: none">Position based Graphical Password</label>
+        </div>
+    
+        <div class="column gp_1 selectt gp_2 selectt" style="margin:0;float: left;display: none">
+        <label class="lbb btn-primary"><input type="radio1" name="radio" value="gp_1" style="display: none">Image based Graphical Password</label>
+        <br><br><br><br><br>
+        <label class="lbb btn-primary"><input type="radio1" name="radio" value="gp_2" style="display: none">Position based Graphical Password</label>
+        </div>
+    </div>
+
+    <div class="column gp_1 selectt" style="display: none">
+        <div class="column" style="width: 550px; height: 300px !important; float: right; margin-top: 40%;">
+<!--                <div id="container">-->
+                    <form method="POST" action="/login">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="" required><br>
+                        </div>
+                    </div>
+                    <div class="aform-group">
+                        <label class="lab">P A S S W O R D</label>
+        
+                        {% include 'graphical_password_1.html' %}
+        
+                        <h5 style="color: red;font-size: 15px;">NOTE: Password must be minimum 4 selections</h5>
+                    </div><br>
+                    <!--<div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+                    </div>-->
+                    <input type="submit" style="background-color: #df2359;" value="Login" class="button is-block is-info is-large is-fullwidth"></input>    
+                </form>
+            </div>
+    </div>
+    <div class="column gp_2 selectt" style="display: none">
+        <div class="column " style="width: 550px; height: 300px !important; float: right; margin-top: 40%;">
+                <!--<div id="container">-->
+                    <form method="POST" action="/login">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="" required><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="lab">P A S S W O R D</label>
+        
+                        {% include 'graphical_password_2_login.html' %}
+
+                        <h5 style="color: red;font-size: 15px;">NOTE: Password should select the intersection of signed details</h5>
+                    </div><br>
+                    <!--<div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+                    </div>-->
+                    <input type="submit" style="background-color: #df2359;" value="Login" class="button is-block is-info is-large is-fullwidth"></input>        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}
